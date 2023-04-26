@@ -45,6 +45,17 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
 }
 
 /// Play a game, as described above.
+/// 
+/// The program should take two command-line arguments
+/// representing the board size: a number of rows and a
+/// number of columns for the board. The program should fail
+/// (somehow) if the requested board size is too large or
+/// negative or not numbers etc.
+///
+/// Thus, a typical run of the program on a 3×4 board might look like
+/// ```text
+/// cargo run 3 4
+/// ```
 fn main() {
     todo!()
 }
