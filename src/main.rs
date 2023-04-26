@@ -7,8 +7,9 @@
 //! * Makes the human move on the board
 //! * Displays the board
 //! * Gets a winning computer move from the AI
-//! * If the AI has no winning move, chooses a
-//!   random computer move
+//!   * If the AI has no winning move, chooses a computer move
+//!     by going to the last available row and eating the last
+//!     available square in that row
 //! * Makes the computer move on the board
 //! * Displays the computer move
 //! This continues until the game is over,
