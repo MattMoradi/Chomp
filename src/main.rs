@@ -1,5 +1,5 @@
 //! Command-line Chomp player  
-//! Your Name and Bart Massey 2023
+//! Matt Moradi and Bart Massey 2023
 //!
 //! This player repeatedly
 //! * Displays the board
@@ -18,6 +18,7 @@
 
 use chomp_ai::*;
 use prompted::input;
+use std::env;
 
 /// Display the current board. This should produce output in this format:
 ///
@@ -44,6 +45,19 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
     todo!()
 }
 
+/// Usage error manager
+fn error() -> !
+{
+    eprintln!("chomp usage: chomp <x> <y>");
+    std::process::exit(1);
+}
+
+/// Parse command line input
+fn parsenum(s: &str) -> u8
+{
+    s.parse().unwrap_or_else(|_| error())
+}
+
 /// Play a game, as described above.
 /// 
 /// The program should take two command-line arguments
@@ -57,5 +71,10 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
 /// cargo run 3 4
 /// ```
 fn main() {
-    todo!()
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() < 3 {error()};
+
+    let x = parsenum(&args[1]);
+    let y = parsenum(&args[2]);
 }

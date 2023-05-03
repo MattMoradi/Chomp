@@ -1,5 +1,5 @@
 //! Chomp AI
-//! Your Name and Bart Massey 2023
+//! Matt Moradi and Bart Massey 2023
 
 /// Maximum number of rows the AI can handle.
 const MAX_ROWS: usize = 4;
