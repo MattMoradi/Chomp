@@ -56,8 +56,12 @@ fn show_posn(posn: &Chomp)
 /// illegal), this function returns `None`. Otherwise it
 /// returns `Some` row and column coordinates of the human
 /// move.
-fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
-    todo!()
+fn user_move(posn: &Chomp) -> Option<(usize, usize)> 
+{
+    let input = input!("Your Move <x> <y>: ");
+    let points = input.trim().split(' ').flat_map(str::parse::<usize>).collect::<Vec<_>>();
+    if(points.len() >= 2) {Some((points[0], points[1]))}
+    else {None}
 }
 
 /// Usage error manager
@@ -94,4 +98,5 @@ fn main() {
     let y = parsenum(&args[2]);
 
     show_posn(&Chomp {nrows: x, ncols: y, board: [[true; 5]; 4]});
+    user_move(&Chomp {nrows: x, ncols: y, board: [[true; 5]; 4]});
 }
