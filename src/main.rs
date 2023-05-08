@@ -27,8 +27,23 @@ use std::env;
 ///    ####.
 ///    #....
 ///
-fn show_posn(posn: &Chomp) {
-    todo!()
+fn show_posn(posn: &Chomp) 
+{
+    println!();
+    let mut columns = 0;
+
+    while columns < posn.ncols
+    {
+        let mut rows = 0;
+        while rows < posn.nrows
+        {
+            print!("#");
+            rows += 1;
+        }
+        println!();
+        columns += 1;
+    }
+    println!();
 }
 
 /// Get a move from the human player. The human should
@@ -53,7 +68,7 @@ fn error() -> !
 }
 
 /// Parse command line input
-fn parsenum(s: &str) -> u8
+fn parsenum(s: &str) -> usize
 {
     s.parse().unwrap_or_else(|_| error())
 }
@@ -77,4 +92,6 @@ fn main() {
 
     let x = parsenum(&args[1]);
     let y = parsenum(&args[2]);
+
+    show_posn(&Chomp {nrows: x, ncols: y, board: [[true; 5]; 4]});
 }
