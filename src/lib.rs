@@ -47,8 +47,20 @@ impl Chomp {
 
     /// Make a move on the current board, "eating" all cells
     /// below `row` and to the right of `col` inclusive.
-    pub fn make_move(&mut self, row: usize, col: usize) {
-        todo!()
+    pub fn make_move(&mut self, row: usize, col: usize) 
+    {
+        let mut columns = col;
+        let mut rows = row;
+
+        while columns < self.ncols
+        {
+            while rows < self.nrows
+            {
+                self.board[rows][columns] = false;
+            }
+            println!();
+            columns += 1;
+        }
     }
 
     /// Returns `Some` winning move for this position as `(row, col)`.
