@@ -101,5 +101,5 @@ fn main() {
     let b: [[bool; 3]; 2] = [[false, true, false], [true, false, true]];
     //show_posn(&Chomp {nrows: x, ncols: y, board: b});
     //user_move(&Chomp {nrows: x, ncols: y, board: [[true; 5]; 4]});
-    user_move(&Chomp {nrows: x, ncols: y, board: b});
+    //user_move(&Chomp {nrows: x, ncols: y, board: b});
 }

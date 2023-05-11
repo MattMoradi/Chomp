@@ -2,9 +2,9 @@
 //! Matt Moradi and Bart Massey 2023
 
 /// Maximum number of rows the AI can handle.
-const MAX_ROWS: usize = 4;
+const MAX_ROWS: usize = 2;
 /// Maximum number of columns the AI can handle.
-const MAX_COLS: usize = 5;
+const MAX_COLS: usize = 3;
 
 /// A Chomp board.
 #[derive(Debug, Clone)]
@@ -41,7 +41,8 @@ impl Chomp {
             ncols,
             MAX_COLS
         );
-        todo!()
+
+        Chomp {nrows: nrows, ncols: ncols, board: [[true; MAX_COLS]; MAX_ROWS]}
     }
 
     /// Make a move on the current board, "eating" all cells
