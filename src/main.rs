@@ -90,7 +90,8 @@ fn parsenum(s: &str) -> usize
 /// ```text
 /// cargo run 3 4
 /// ```
-fn main() {
+fn main() 
+{
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 3 {error()};
@@ -98,8 +99,64 @@ fn main() {
     let x = parsenum(&args[1]);
     let y = parsenum(&args[2]);
     
-    let mut c = Chomp::new(3, 4);
-    c.make_move(1,1);
-    show_posn(&c);
-    //println!("{:?}", c.winning_move().is_some());
+    let mut c = Chomp::new(x, y);
+
+    loop
+    {
+        show_posn(&c);
+        while let m = user_move(&c)
+        {
+            if m == None 
+            {
+                println!("BAD SELECTION!");
+                continue;
+            }
+
+            if let Some((a,b)) = m
+            {
+                c.make_move(a, b);
+                break;
+            }
+        }
+
+        show_posn(&c);
+        
+        // poison square eaten on user move
+        if c.board[0][0] == false
+        {
+            println!("YOU LOSE!");
+            break;
+        }
+
+        if let m = c.winning_move()
+        {
+            if m == None 
+            {
+                let mut row = 0;
+                let mut col = 0;
+
+                while row < c.nrows && c.board[row][0] == true
+                {
+                    row += 1;
+                }
+                while col < c.ncols && c.board[row][col] == true
+                {
+                    col += 1;
+                }
+                c.make_move(row, col);
+            }
+            else if let Some((a,b)) = m 
+            {
+                c.make_move(a, b);
+            }
+        }
+        println!("AI Moved: ");
+
+        // poison square eaten on AI move
+        if c.board[0][0] == false
+        {
+            println!("YOU WIN!");
+            break;
+        }
+    }
 }
