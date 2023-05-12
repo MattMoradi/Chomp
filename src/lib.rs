@@ -2,9 +2,9 @@
 //! Matt Moradi and Bart Massey 2023
 
 /// Maximum number of rows the AI can handle.
-const MAX_ROWS: usize = 2;
+const MAX_ROWS: usize = 4;
 /// Maximum number of columns the AI can handle.
-const MAX_COLS: usize = 3;
+const MAX_COLS: usize = 5;
 
 /// A Chomp board.
 #[derive(Debug, Clone)]
@@ -49,17 +49,18 @@ impl Chomp {
     /// below `row` and to the right of `col` inclusive.
     pub fn make_move(&mut self, row: usize, col: usize) 
     {
-        let mut columns = col;
         let mut rows = row;
 
-        while columns < self.ncols
+        while rows < self.nrows
         {
-            while rows < self.nrows
+            let mut columns = col;
+            while columns < self.ncols
             {
                 self.board[rows][columns] = false;
+                columns += 1;
             }
             println!();
-            columns += 1;
+            rows += 1;
         }
     }
 
@@ -82,7 +83,34 @@ impl Chomp {
     ///    return no winning move
     /// ```
     pub fn winning_move(&self) -> Option<(usize, usize)> {
-        todo!()
+        let mut r = 0;
+
+        while r < self.nrows && self.board[r][0] == true
+        {
+            let mut c = 0;
+            while c < self.ncols && self.board[r][c] == true
+            {
+                println!("{}", c);
+                if r == 0 && c == 0
+                {
+                    c+=1;
+                    continue;
+                }
+
+                let mut p = self.clone();
+                p.make_move(r, c);
+                let m = p.winning_move();
+                println!("HERE");
+                //if m == Some((r, c))
+                if(m.is_none())
+                {
+                    return Some((r, c));
+                }
+                c+=1;
+            }
+            r+=1;
+        }
+        None
     }
 }
 
