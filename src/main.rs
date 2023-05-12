@@ -37,7 +37,7 @@ fn show_posn(posn: &Chomp)
         let mut rows = 0;
         while rows < posn.nrows
         {
-            if(posn.board[rows][columns] == true) {print!("#");}
+            if posn.board[rows][columns] {print!("#");}
             else {print!(".")};
             rows += 1;
         }
@@ -61,7 +61,7 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)>
 {
     let input = input!("Your Move <x> <y>: ");
     let points = input.trim().split(' ').flat_map(str::parse::<usize>).collect::<Vec<_>>();
-    if(points.len() >= 2 && posn.board[points[1]][points[0]] == true) {Some((points[0], points[1]))}
+    if points.len() >= 2 && posn.board[points[1]][points[0]] {Some((points[0], points[1]))}
     else {None}
 }
 
@@ -104,9 +104,10 @@ fn main()
     loop
     {
         show_posn(&c);
-        while let m = user_move(&c)
+        loop
         {
-            if m == None 
+            let m = user_move(&c);
+            if m.is_none()
             {
                 println!("BAD SELECTION!");
                 continue;
@@ -122,38 +123,37 @@ fn main()
         show_posn(&c);
         
         // poison square eaten on user move
-        if c.board[0][0] == false
+        if !c.board[0][0]
         {
             println!("YOU LOSE!");
             break;
         }
 
-        if let m = c.winning_move()
-        {
-            if m == None 
-            {
-                let mut row = 0;
-                let mut col = 0;
+        let m = c.winning_move();
 
-                while row < c.nrows && c.board[row][0] == true
-                {
-                    row += 1;
-                }
-                while col < c.ncols && c.board[row][col] == true
-                {
-                    col += 1;
-                }
-                c.make_move(row, col);
-            }
-            else if let Some((a,b)) = m 
+        if m.is_none()
+        {
+            let mut row = 0;
+            let mut col = 0;
+
+            while row < c.nrows && c.board[row][0]
             {
-                c.make_move(a, b);
+                row += 1;
             }
+            while col < c.ncols && c.board[row][col]
+            {
+                col += 1;
+            }
+            c.make_move(row, col);
+        }
+        else if let Some((a,b)) = m 
+        {
+            c.make_move(a, b);
         }
         println!("AI Moved: ");
 
         // poison square eaten on AI move
-        if c.board[0][0] == false
+        if !c.board[0][0]
         {
             println!("YOU WIN!");
             break;

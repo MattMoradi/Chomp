@@ -42,7 +42,7 @@ impl Chomp {
             MAX_COLS
         );
 
-        Chomp {nrows: nrows, ncols: ncols, board: [[true; MAX_COLS]; MAX_ROWS]}
+        Chomp {nrows, ncols, board: [[true; MAX_COLS]; MAX_ROWS]}
     }
 
     /// Make a move on the current board, "eating" all cells
@@ -85,24 +85,20 @@ impl Chomp {
     pub fn winning_move(&self) -> Option<(usize, usize)> {
         let mut r = 0;
 
-        while r < self.nrows && self.board[r][0] == true
+        while r < self.nrows && self.board[r][0]
         {
             let mut c = 0;
-            while c < self.ncols && self.board[r][c] == true
+            while c < self.ncols && self.board[r][c]
             {
-                println!("{}", c);
                 if r == 0 && c == 0
                 {
                     c+=1;
                     continue;
                 }
-
                 let mut p = self.clone();
                 p.make_move(r, c);
                 let m = p.winning_move();
-                println!("HERE");
-                //if m == Some((r, c))
-                if(m.is_none())
+                if m.is_none()
                 {
                     return Some((r, c));
                 }
