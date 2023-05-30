@@ -1,4 +1,7 @@
 # Chomp Game
+![Build](https://github.com/MattMoradi/Chomp/actions/workflows/build.yml/badge.svg)
+![Clippy](https://github.com/MattMoradi/Chomp/actions/workflows/clippy.yml/badge.svg)
+
 Matt Moradi and Bart Massey 2023
 
 This code plays the game of
